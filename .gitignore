@@ -1,0 +1,22 @@
+# Common folder
+.git/
+
+# 忽略编译生成的文件
+Saved/
+Intermediate/
+
+# 忽略编辑器自动生成的文件
+Binaries/
+DerivedDataCache/
+Content/Developers/
+Content/Collections/
+
+# Visual Studio files and folder
+.vs/
+.vscode/
+*.sln
+*.vcxproj
+*.vcxproj.user
+*.vcxproj.filters
+*.csproj
+.vsconfig
