@@ -5,7 +5,8 @@ IMPLEMENT_GAME_MODULE(FCustomShadersDeclarationsModule, CustomShadersDeclaration
 
 void FCustomShadersDeclarationsModule::StartupModule()
 {
-
+	FString ShaderDirectory = FPaths::Combine(FPaths::ProjectDir(), TEXT("Shaders/Private"));
+	AddShaderSourceDirectoryMapping("/CustomShaders", ShaderDirectory);
 }
 
 void FCustomShadersDeclarationsModule::ShutdownModule()

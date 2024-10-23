@@ -1,0 +1,24 @@
+#include "/Engine/Public/Platform.ush"
+
+RWTexture2D<float> OutputTexture;
+float2 Dimensions;
+uint TimeStamp;
+
+float hash12(float2 p)
+{
+    float3 p3 = frac(float3(p.xyx) * .1031);
+    p3 += dot(p3, p3.yzx + 33.33);
+    return frac((p3.x + p3.y) * p3.z);
+}
+
+[numthreads(THREADGROUPSIZE_X, THREADGROUPSIZE_Y, THREADGROUPSIZE_Z)]
+void MainComputeShader(uint3 Gid : SV_GroupID, // 线程组在所有线程组组成的集合中的ID
+                       uint3 DTid : SV_DispatchThreadID, // uint3类型，唯一标识，在所有线程中的ID，它是某个线程在所有线程中的ID
+                       uint3 GTid : SV_GroupThreadID, // uint3类型，某一线程在线程组（组内线程的集合）内的ID
+                       uint GI : SV_GroupIndex) // uint类型，仅一个整数，表示某一线程在线程组（组内线程的集合）内的编号（目录）
+{
+    float2 p = float2(DTid.xy * TimeStamp);
+    float output = hash12(p);
+
+    OutputTexture[DTid.xy] = output;
+}
